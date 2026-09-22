@@ -16,8 +16,8 @@ export const mediaType = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'media',
-      title: 'Media',
+      name: 'file',
+      title: 'File',
       type: 'image',
       validation: Rule => Rule.required().error('Image or video is required.'),
       options: {
