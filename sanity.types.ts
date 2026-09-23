@@ -305,11 +305,22 @@ export type EVENTS_QUERY_RESULT = Array<{
   location: string | null;
 }>;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: HOMEPAGE_QUERY
+// Query: *[_type == 'home'][0]{_id, heroSubtitle, heroTitle, introText}
+export type HOMEPAGE_QUERY_RESULT = {
+  _id: string;
+  heroSubtitle: string | null;
+  heroTitle: string | null;
+  introText: string | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "home"][0]': HOME_QUERY_RESULT;
     '*[_type == "event"]{_id, name, description, cost,  \n    media[]->{\n      _id,\n      file\n    }, datetime, location}': EVENTS_QUERY_RESULT;
+    "*[_type == 'home'][0]{_id, heroSubtitle, heroTitle, introText}": HOMEPAGE_QUERY_RESULT;
   }
 }

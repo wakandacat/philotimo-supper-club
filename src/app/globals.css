@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --philotimo-blue: #0F338E;
+  --philotimo-blue-dark: #082063;
+  --philotimo-blue-light: #0B3AB6;
+  --philotimo-white: #F4EFE8;
+  --philotimo-black: #131313;
+  --philotimo-yellow: #F8EC85;
+  --philotimo-yellow-dark: #BEB03B;
+
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--philotimo-white);
+  color: var(--philotimo-black);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.header-link {
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.button-1-style {
+  background-color: var(--philotimo-blue);
+  color: var(--philotimo-white);
+  text-transform: uppercase;
+  padding: 10px 25px;
+  display: block;
+}
+
+.button-1-style:hover {
+  background-color: var(--philotimo-yellow);
+  color: var(--philotimo-blue);
+}
+
+.page-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 20;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.25rem;
 }

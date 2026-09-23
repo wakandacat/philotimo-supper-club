@@ -13,3 +13,12 @@ This site is built with Next.js with React for the front-end, Sanity.io as a hea
 ## For development
 
 You will need a new .env.local file at the root of the project on each new device or account to run the project locally. This file needs a sanity-project-id, sanity-project-version, sanity-project-dataset, and a sanity-read token set to viewer.
+
+## TODO:
+
+limit homepage content and aboutpage content and legal content to only 1 entry per
+ensure validation and error checking (and empty) for all schema content
+language toggle and language of schema content???
+add actual components
+add actual styling
+ensure the upcoming event logic is correct (compare all datetimes to current datetime) --> currently just grabbing the first value

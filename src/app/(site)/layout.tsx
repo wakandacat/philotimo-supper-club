@@ -1,5 +1,7 @@
 // src/app/(site)/layout.tsx
 import { SanityLive } from "@/sanity/lib/live";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function SiteLayout({
   children,
@@ -8,7 +10,9 @@ export default function SiteLayout({
 }) {
   return (
     <>
+      <Header/>
       {children}
+      <Footer/>
       <SanityLive />
     </>
   );
