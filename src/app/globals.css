@@ -40,10 +40,53 @@ body {
   color: var(--philotimo-blue);
 }
 
+.button-2-style {
+  background-color: var(--philotimo-yellow);
+  color: var(--philotimo-blue);
+  text-transform: uppercase;
+  padding: 10px 25px;
+  display: block;
+}
+
+.button-2-style:hover {
+  background-color: var(--philotimo-blue-light);
+  color: var(--philotimo-white);
+}
+
 .page-banner {
   display: flex;
   flex-direction: column;
   gap: 20;
+  justify-content: start;
+  align-items: start;
+  width: 100vw;
+  padding: 96px;
+}
+
+.page-section{
+  width: 100vw;
+  padding: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* maybe make this a grid */
+.event-container{
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--philotimo-blue);
+  color: var(--philotimo-white);
+  margin: 24px 0px;
+}
+
+img {
+  max-width: 300px;
+  height: auto;
 }
 
 h1 {
