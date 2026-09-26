@@ -24,7 +24,10 @@ export default async function HomePage() {
       <div className="event-container"> 
         <div className="flex flex-col">    
         <h2>{event[0].name}</h2>
-            <h4>{new Date(event[0].datetime).toLocaleString()}</h4>
+        {/* check for null behaviours!! */}
+            <h4>{event[0].datetime
+      ? new Date(event[0].datetime).toLocaleString()
+      : 'Date to be announced'}</h4>
             <h4>{event[0].description}</h4>
             <h4>{event[0].cost}</h4>
             <h4>{event[0].location}</h4>

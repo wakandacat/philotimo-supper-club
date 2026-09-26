@@ -14,7 +14,9 @@ export default async function EventsPage() {
             <div className="event-container" key={event._id}>
               <div className="flex flex-col">
                 <h2>{event.name}</h2>
-                <h4>{new Date(event.datetime).toLocaleString()}</h4>
+                <h4>{event.datetime
+            ? new Date(event.datetime).toLocaleString()
+            : 'Date to be announced'}</h4>
                 <h4>{event.description}</h4>
                 <h4>{event.cost}</h4>
                 <h4>{event.location}</h4>
