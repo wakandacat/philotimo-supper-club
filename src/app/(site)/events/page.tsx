@@ -12,24 +12,27 @@ export default async function EventsPage() {
         <div className="page-section bg-(--philotimo-white) text-(--philotimo-blue)">
         {events.map((event) => (
             <div className="event-container" key={event._id}>
-              <h2>{event.name}</h2>
-              <p>{event.datetime}</p>
-              <p>{event.description}</p>
-              <p>{event.cost}</p>
-              <p>{event.location}</p>
-              {event.media?.map((item) => (
-              <div key={item._id}>
-                  <p>{item.file?.caption}</p>
-                  {item.file?.asset && (
-                  <img
-                      src={urlFor(item.file).width(600).height(400).url()}
-                      alt={item.file.alttext || item.file.caption || ''}
-                      width={600}
-                      height={400}
-                  />
-                  )}
+              <div className="flex flex-col">
+                <h2>{event.name}</h2>
+                <h4>{new Date(event.datetime).toLocaleString()}</h4>
+                <h4>{event.description}</h4>
+                <h4>{event.cost}</h4>
+                <h4>{event.location}</h4>
               </div>
-              ))}
+              <div>
+                  {event.media?.map((item) => (
+                  <div key={item._id}>
+                      <p>{item.file?.caption}</p>
+                      {item.file?.asset && (
+                      <img
+                          src={urlFor(item.file).url()}
+                          alt={item.file.alttext || item.file.caption || ''}
+                      />
+                      )}
+                  </div>
+                  ))}
+              </div>
+            
           </div>
         ))}
       </div> 

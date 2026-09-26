@@ -21,21 +21,21 @@ export default async function HomePage() {
 
     <div className="page-section">
       <h2>Upcoming Event</h2>
-      <div className="event-container">      
+      <div className="event-container"> 
+        <div className="flex flex-col">    
         <h2>{event[0].name}</h2>
-          <p>{event[0].datetime}</p>
-          <p>{event[0].description}</p>
-          <p>{event[0].cost}</p>
-          <p>{event[0].location}</p>
+            <h4>{new Date(event[0].datetime).toLocaleString()}</h4>
+            <h4>{event[0].description}</h4>
+            <h4>{event[0].cost}</h4>
+            <h4>{event[0].location}</h4>
+          </div> 
           {event[0].media?.map((item) => (
           <div key={item._id}>
               <p>{item.file?.caption}</p>
               {item.file?.asset && (
               <img
-                  src={urlFor(item.file).width(600).height(400).url()}
+                  src={urlFor(item.file).url()}
                   alt={item.file.alttext || item.file.caption || ''}
-                  width={600}
-                  height={400}
               />
               )}
           </div>

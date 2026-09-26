@@ -23,8 +23,13 @@ body {
 }
 
 .header-link {
-  padding: 5px;
+  padding: 10px;
   text-transform: uppercase;
+}
+
+.header-link:hover {
+  background-color: var(--philotimo-yellow);
+  color: var(--philotimo-blue);
 }
 
 .button-1-style {
@@ -74,18 +79,18 @@ body {
 
 /* maybe make this a grid */
 .event-container{
-  padding: 24px;
+  padding: 48px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   background: var(--philotimo-blue);
   color: var(--philotimo-white);
   margin: 24px 0px;
+  width: 100%;
 }
 
 img {
-  max-width: 300px;
+  max-width: 200px;
   height: auto;
 }
 
