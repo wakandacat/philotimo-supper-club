@@ -7,6 +7,7 @@ export default function Header(){
         <header className="py-4 bg-(--philotimo-blue-dark) text-(--philotimo-white)">
             {/* logo */}
             <Link className="header-link" href="/">Philotimo Supper Club</Link>
+            <Link className="header-link" href="/">Home</Link>
             <Link className="header-link" href="/about">About</Link>
             <Link className="header-link" href="/events">Events</Link>
             <Link className="header-link" href="/contact">Contact</Link>

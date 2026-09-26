@@ -1,0 +1,19 @@
+{
+    "PhilotimoName": "Philotimo Supper Club",
+    "generalButtons": {
+        "seeEventButton": "Approchez-vous",
+        "seeAllEventsButton": "A tous les evenements"
+    },
+    "headerButtons": {
+        "HomeLink": "Home",
+        "AboutLink": "Apropos",
+        "EventsLink": "Evenements",
+        "ContactLink": "Contact"
+    },
+    "footer": {
+        "rightsReserved": "All rights reserved."
+    },
+    "mailingList": {
+        "joinText": "Join our mailing list."
+    }
+}

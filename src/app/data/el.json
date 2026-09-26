@@ -1,0 +1,19 @@
+{
+    "PhilotimoName": "Φιλότιμο",
+    "generalButtons": {
+        "seeEventButton": "Κάτσε κάτω",
+        "seeAllEventsButton": "test"
+    },
+    "headerButtons": {
+        "HomeLink": "Home",
+        "AboutLink": "About",
+        "EventsLink": "Events",
+        "ContactLink": "Contact"
+    },
+    "footer": {
+        "rightsReserved": "All rights reserved."
+    },
+    "mailingList": {
+        "joinText": "Join our mailing list."
+    }
+}
