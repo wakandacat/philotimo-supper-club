@@ -8,18 +8,23 @@ export default async function HomePage() {
   const { data: homepage } = await sanityFetch({ query: HOMEPAGE_QUERY });
   const { data: event } = await sanityFetch({ query: EVENTS_QUERY }); //maybe create a seperate one for this page
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between px-24">
-      <div className="page-banner">
-        <h1>{homepage?.heroTitle}</h1>
-        <h3>{homepage?.heroSubtitle}</h3>
-        <Link href="/contact" className="button-1-style">Pull up a chair</Link>
+    <>
+      <div className="page-banner w-full py-10">
+        <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
+          <h1>{homepage?.heroTitle}</h1>
+          <h3>{homepage?.heroSubtitle}</h3>
+          <Link href="/contact" className="button-1-style">Pull up a chair</Link>
+        </div>
       </div>
 
-    <div className="page-section bg-(--philotimo-blue) text-(--philotimo-white)">
-      <h3>{homepage?.introText}</h3>
+    <div className="page-section w-full py-10 bg-(--philotimo-blue) text-(--philotimo-white)">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
+        <h3>{homepage?.introText}</h3>
+      </div>
     </div>
 
-    <div className="page-section">
+    <div className="page-section w-full py-10">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
       <h2>Upcoming Event</h2>
       <div className="event-container"> 
         <div className="flex flex-col">    
@@ -48,13 +53,15 @@ export default async function HomePage() {
             <Link href="/contact" className="button-2-style">Pull up a chair</Link>
             <Link href="/events" className="button-2-style">See all events</Link>
         </div>
+      </div>
 
     </div>
 
-    <div className="page-section bg-(--philotimo-blue) text-(--philotimo-white)">
+    <div className="page-section w-full py-10 bg-(--philotimo-blue) text-(--philotimo-white)">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
           <h2>Join our mailing list.</h2>
+      </div>
     </div>
-
-    </div>
+  </>
   );
 }

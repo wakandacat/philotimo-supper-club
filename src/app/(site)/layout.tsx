@@ -9,11 +9,11 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <main className="flex flex-col min-h-screen">
       <Header/>
-      {children}
+        {children}
       <Footer/>
       <SanityLive />
-    </>
+    </main>
   );
 }

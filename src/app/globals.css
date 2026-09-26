@@ -64,13 +64,11 @@ body {
   gap: 20;
   justify-content: start;
   align-items: start;
-  width: 100vw;
-  padding: 96px;
+  width: 100%;
 }
 
 .page-section{
-  width: 100vw;
-  padding: 96px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +88,7 @@ body {
 }
 
 img {
-  max-width: 200px;
+  max-width: 100px;
   height: auto;
 }
 
