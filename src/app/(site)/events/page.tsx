@@ -1,9 +1,11 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { EVENTS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+// import { getLocale } from 'next-intl/server';
 
 export default async function EventsPage() {
-  const { data: events } = await sanityFetch({ query: EVENTS_QUERY });
+  // const locale = await getLocale()
+  // const { data: events } = await sanityFetch({ query: EVENTS_QUERY, params: {locale} });
   return (
     <>
       <div className="page-banner w-full py-10">
