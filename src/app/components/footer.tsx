@@ -8,6 +8,7 @@ export default function Footer(){
             <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 sm:px-6 lg:px-8">
             <div className="flex flex-row flex-wrap justify-between gap-6">
                 <h4>Philotimo Supper Club</h4>
+                <Link href="/legal">Terms & Conditions</Link>
                 {/* links to social media with icons */}
                 <div className="flex gap-6">
                     <Link href="">Instagram</Link>

@@ -10,8 +10,14 @@ export const legalType = defineType({
   title: 'Legal Page Content',
   type: 'document',
   fields: [
+    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
-      name: 'termsTitle',
+      name: 'title',
+      title: 'Page Title',
+      type: 'string'
+    }),
+    defineField({
+      name: 'termsText',
       title: 'Terms and Conditions',
       type: 'text',
       description: 'Terms and conditions for the website.',

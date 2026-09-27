@@ -22,6 +22,10 @@ export default function Header(){
     return () => media.removeEventListener('change', listener);
   }, []);
 
+  function toBeImplemented() {
+    alert("Language toggle is under construction!");
+  }
+
     return (
         <header className="w-full py-4 bg-(--philotimo-blue-dark) text-(--philotimo-white)">
             <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
@@ -36,7 +40,7 @@ export default function Header(){
                     <Link className="header-link" href="/events">Events</Link>
                     <Link className="header-link" href="/contact">Contact</Link>
                 </div>
-                <p className="inline p-3 bg-(--philotimo-blue)"> TOGGLE SOON</p>
+                <button onClick={toBeImplemented} className="inline button-1-style">EN</button>
             </div>
           
             </>) 

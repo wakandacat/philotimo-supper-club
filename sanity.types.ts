@@ -15,37 +15,84 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type TranslationMetadata = {
+  _id: string;
+  _type: "translation.metadata";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  translations?: InternationalizedArrayReference;
+  schemaTypes?: Array<string>;
+};
+
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayReferenceValue
+>;
+
+export type HomeReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "home";
+};
+
+export type AboutReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "about";
+};
+
+export type MediaReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "media";
+};
+
+export type EventReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "event";
+};
+
+export type BusinessInfoReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "businessInfo";
+};
+
+export type LegalReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "legal";
+};
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue";
+  value?:
+    | HomeReference
+    | AboutReference
+    | MediaReference
+    | EventReference
+    | BusinessInfoReference
+    | LegalReference;
+  language?: string;
+};
+
 export type Legal = {
   _id: string;
   _type: "legal";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  termsTitle?: string;
-};
-
-export type About = {
-  _id: string;
-  _type: "about";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  aboutTitle?: string;
-  aboutSupperClub?: string;
-  hostText?: string;
-  inspoText?: string;
-  visionText?: string;
-};
-
-export type Home = {
-  _id: string;
-  _type: "home";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-  introText?: string;
+  title?: string;
+  termsText?: string;
 };
 
 export type SanityImageAssetReference = {
@@ -100,12 +147,60 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type Event = {
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  datetime?: string;
+  cost?: number;
+  location?: string;
+  media?: Array<
+    {
+      _key: string;
+    } & MediaReference
+  >;
+};
+
+export type About = {
+  _id: string;
+  _type: "about";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  bannerText?: string;
+  aboutText?: string;
+  historyText?: string;
+  hostText?: string;
+  hostImage?: MediaReference;
+  inspoText?: string;
+  inspoImage?: MediaReference;
+};
+
+export type Home = {
+  _id: string;
+  _type: "home";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  heroTitle?: string;
+  heroImage?: MediaReference;
+  heroSubtitle?: string;
+  introText?: string;
+};
+
 export type Media = {
   _id: string;
   _type: "media";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language?: string;
   name?: string;
   file?: {
     asset?: SanityImageAssetReference;
@@ -116,31 +211,6 @@ export type Media = {
     alttext?: string;
     _type: "image";
   };
-};
-
-export type MediaReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "media";
-};
-
-export type Event = {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  description?: string;
-  datetime?: string;
-  cost?: number;
-  location?: string;
-  media?: Array<
-    {
-      _key: string;
-    } & MediaReference
-  >;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -247,16 +317,24 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | TranslationMetadata
+  | InternationalizedArrayReference
+  | HomeReference
+  | AboutReference
+  | MediaReference
+  | EventReference
+  | BusinessInfoReference
+  | LegalReference
+  | InternationalizedArrayReferenceValue
   | Legal
-  | About
-  | Home
   | SanityImageAssetReference
   | BusinessInfo
   | SanityImageCrop
   | SanityImageHotspot
-  | Media
-  | MediaReference
   | Event
+  | About
+  | Home
+  | Media
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -268,25 +346,47 @@ export type AllSanitySchemaTypes =
   | Slug;
 
 // Source: src/sanity/lib/queries.ts
-// Variable: HOME_QUERY
-// Query: *[_type == "home"][0]
-export type HOME_QUERY_RESULT = {
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about"][0] {_id, bannerText, aboutText, historyText, hostText, inspoText, hostImage-> {_id,      file}, inspoImage-> {_id,      file}}
+export type ABOUT_QUERY_RESULT = {
   _id: string;
-  _type: "home";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-  introText?: string;
+  bannerText: string | null;
+  aboutText: string | null;
+  historyText: string | null;
+  hostText: string | null;
+  inspoText: string | null;
+  hostImage: {
+    _id: string;
+    file: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      caption?: string;
+      alttext?: string;
+      _type: "image";
+    } | null;
+  } | null;
+  inspoImage: {
+    _id: string;
+    file: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      caption?: string;
+      alttext?: string;
+      _type: "image";
+    } | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: EVENTS_QUERY
-// Query: *[_type == "event"] | order(datetime desc) {_id, name, description, cost,      media[]->{      _id,      file    }, datetime, location}
+// Query: *[_type == "event"] | order(datetime desc) {_id, title, description, cost,      media[]->{      _id,      file    }, datetime, location}
 export type EVENTS_QUERY_RESULT = Array<{
   _id: string;
-  name: string | null;
+  title: string | null;
   description: string | null;
   cost: number | null;
   media: Array<{
@@ -307,20 +407,48 @@ export type EVENTS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: HOMEPAGE_QUERY
-// Query: *[_type == 'home'][0]{_id, heroSubtitle, heroTitle, introText}
+// Query: *[_type == 'home'] [0]{_id, heroSubtitle, heroTitle, introText, heroImage-> {_id,      file}}
 export type HOMEPAGE_QUERY_RESULT = {
   _id: string;
   heroSubtitle: string | null;
   heroTitle: string | null;
   introText: string | null;
+  heroImage: {
+    _id: string;
+    file: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      caption?: string;
+      alttext?: string;
+      _type: "image";
+    } | null;
+  } | null;
 } | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: LEGAL_QUERY
+// Query: *[_type == 'legal'][0] {_id, title, termsText}
+export type LEGAL_QUERY_RESULT = {
+  _id: string;
+  title: string | null;
+  termsText: string | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: BUSINESS_QUERY
+// Query: *[_type == 'busninessInfo'][0] {_id, name, description, logo[]->{      _id,      file },      location, phone, email, socials[]->{      _id,      icon,      url    }}
+export type BUSINESS_QUERY_RESULT = null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "home"][0]': HOME_QUERY_RESULT;
-    '*[_type == "event"] | order(datetime desc) {_id, name, description, cost,  \n    media[]->{\n      _id,\n      file\n    }, datetime, location}': EVENTS_QUERY_RESULT;
-    "*[_type == 'home'][0]{_id, heroSubtitle, heroTitle, introText}": HOMEPAGE_QUERY_RESULT;
+    '*[_type == "about"][0] {_id, bannerText, aboutText, historyText, hostText, inspoText, hostImage-> {_id,\n      file}, inspoImage-> {_id,\n      file}}': ABOUT_QUERY_RESULT;
+    '*[_type == "event"] | order(datetime desc) {_id, title, description, cost,  \n    media[]->{\n      _id,\n      file\n    }, datetime, location}': EVENTS_QUERY_RESULT;
+    "*[_type == 'home'] [0]{_id, heroSubtitle, heroTitle, introText, heroImage-> {_id,\n      file}}": HOMEPAGE_QUERY_RESULT;
+    "*[_type == 'legal'][0] {_id, title, termsText}": LEGAL_QUERY_RESULT;
+    "*[_type == 'busninessInfo'][0] {_id, name, description, logo[]->{\n      _id,\n      file },\n      location, phone, email, socials[]->{\n      _id,\n      icon,\n      url\n    }}": BUSINESS_QUERY_RESULT;
   }
 }
