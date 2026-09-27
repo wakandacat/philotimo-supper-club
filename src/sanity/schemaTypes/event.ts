@@ -10,10 +10,10 @@ export const eventType = defineType({
   title: 'Event',
   type: 'document',
   fields: [
-    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
+    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'title',
+      title: 'Event Name',
       type: 'string',
       description: 'Name the event something memorable!',
       placeholder: 'Marvin\'s Magical Event',

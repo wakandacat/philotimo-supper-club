@@ -10,7 +10,12 @@ export const homeType = defineType({
   title: 'Homepage Content',
   type: 'document',
   fields: [
-    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
+    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
+    defineField({
+      name: 'title',
+      title: 'Page Title',
+      type: 'string',
+    }),
     defineField({
       name: 'heroTitle',
       title: 'Hero Title',
@@ -18,6 +23,14 @@ export const homeType = defineType({
       description: 'The title for the hero section of the homepage.',
       placeholder: 'Welcome to the Greek Table',
       validation: Rule => Rule.required().error('A hero title for the homepage is required.'),
+    }),
+     defineField({
+      name: 'heroImage',
+      title: 'Hero Image',
+      type: 'reference', 
+      to: [{ type: 'media' }],
+      description: 'The image for the hero section of the homepage.',
+      validation: Rule => Rule.required().error('A hero image for the homepage is required.'),
     }),
      defineField({
       name: 'heroSubtitle',

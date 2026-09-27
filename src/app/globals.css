@@ -38,6 +38,7 @@ body {
   text-transform: uppercase;
   padding: 10px 25px;
   display: block;
+  border: 2px solid var(--philotimo-blue);
 }
 
 .button-1-style:hover {
@@ -51,20 +52,48 @@ body {
   text-transform: uppercase;
   padding: 10px 25px;
   display: block;
+  border: 2px solid var(--philotimo-blue);
 }
 
 .button-2-style:hover {
   background-color: var(--philotimo-blue-light);
   color: var(--philotimo-white);
+    border: 2px solid var(--philotimo-yellow);
 }
 
 .page-banner {
   display: flex;
   flex-direction: column;
-  gap: 20;
-  justify-content: start;
-  align-items: start;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+/* .hero-copy,
+.hero-image-frame {
+  flex: 1;
+  min-width: 0;
+} */
+
+.hero-image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.hero-image {
+  max-width: none;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .page-banner {
+    flex-direction: row;
+    gap: 4rem;
+  }
 }
 
 .page-section{
@@ -73,6 +102,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 10;
 }
 
 /* maybe make this a grid */
@@ -80,16 +110,53 @@ body {
   padding: 48px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
+  gap: 2rem;
   background: var(--philotimo-blue);
   color: var(--philotimo-white);
   margin: 24px 0px;
   width: 100%;
 }
 
-img {
-  max-width: 100px;
-  height: auto;
+.event-details,
+.event-gallery {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.event-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.event-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 3px solid var(--philotimo-yellow);
+}
+
+.event-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .event-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .event-gallery {
+    width: 100%;
+  }
+
 }
 
 h1 {
@@ -106,4 +173,11 @@ h3 {
 
 h4 {
   font-size: 1.25rem;
+}
+
+input {
+  padding: 10px;
+  border: 2px solid var(--philotimo-blue-dark);
+  background-color: var(--philotimo-white);
+  color: var(--philotimo-black);
 }

@@ -19,7 +19,7 @@ export const businessInfoType = defineType({
   type: 'document',
   description: 'Business information including contacts and social media links. Ensure there is only one of these documents.',
   fields: [
-    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
+    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
       name: 'name',
       title: 'Name',

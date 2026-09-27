@@ -1,11 +1,13 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { EVENTS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import Link from "next/link";
 // import { getLocale } from 'next-intl/server';
 
 export default async function EventsPage() {
   // const locale = await getLocale()
-  // const { data: events } = await sanityFetch({ query: EVENTS_QUERY, params: {locale} });
+  //  const { data: events } = await sanityFetch({ query: EVENTS_QUERY, params: {locale} });
+  const { data: events } = await sanityFetch({ query: EVENTS_QUERY});
   return (
     <>
       <div className="page-banner w-full py-10">
@@ -13,23 +15,23 @@ export default async function EventsPage() {
           <h1>Events Page</h1>
         </div>
       </div>
-        <div className="page-section w-full py-10 bg-(--philotimo-white) text-(--philotimo-blue)">
+        <div className="w-full py-10 bg-(--philotimo-white) text-(--philotimo-blue)">
           <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
         {events.map((event) => (
             <div className="event-container" key={event._id}>
-              <div className="flex flex-col">
-                <h2>{event.name}</h2>
+              <div className="event-details flex flex-col justify-between items-start gap-8">
+                <h2>{event.title}</h2>
                 <h4>{event.datetime
-            ? new Date(event.datetime).toLocaleString()
+            ? 'When: ' + new Date(event.datetime).toLocaleString()
             : 'Date to be announced'}</h4>
+                <h4>{'Where: ' + event.location}</h4>
                 <h4>{event.description}</h4>
-                <h4>{event.cost}</h4>
-                <h4>{event.location}</h4>
+                 <h4>{'Cost: $'+ event.cost + " CAD"}</h4>
               </div>
-              <div>
+              <div className="event-gallery">
                   {event.media?.map((item) => (
-                  <div key={item._id}>
-                      <p>{item.file?.caption}</p>
+                  <div key={item._id} className="event-image">
+                      {/* <p>{item.file?.caption}</p> */}
                       {item.file?.asset && (
                       <img
                           src={urlFor(item.file).url()}
@@ -47,6 +49,11 @@ export default async function EventsPage() {
       <div className="page-section w-full py-10 bg-(--philotimo-blue) text-(--philotimo-white)">
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
           <h2>Join our mailing list.</h2>
+           <h4>Get all the updates about upcoming events as soon as they’re released.</h4>
+          <div className="flex gap-4 mt-10">
+              <input type="text" id="email" name="email" placeholder="johndoe@gmail.com"></input>
+              <Link href="" className="button-2-style">Submit</Link>   
+          </div>
         </div>
     </div>    
     </>
