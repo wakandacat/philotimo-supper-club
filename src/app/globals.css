@@ -72,11 +72,10 @@ body {
   padding-bottom: 64px;
 }
 
-/* .hero-copy,
-.hero-image-frame {
-  flex: 1;
-  min-width: 0;
-} */
+.button-active {
+  background-color: var(--philotimo-yellow);
+  color: var(--philotimo-blue);
+}
 
 .hero-image-frame {
   position: relative;

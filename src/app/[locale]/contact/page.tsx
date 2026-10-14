@@ -2,8 +2,17 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { BUSINESS_QUERY } from "@/sanity/lib/queries";
 import Link from "next/link";
 
-export default async function ContactPage() {
-  const { data:business } = await sanityFetch({ query: BUSINESS_QUERY });
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
+  const { data: business } = await sanityFetch({
+    query: BUSINESS_QUERY,
+    params: { locale },
+  })
 
  function toBeImplemented() {
     alert("Registration has not yet been implemented.");

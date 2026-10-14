@@ -19,22 +19,19 @@ export const businessInfoType = defineType({
   type: 'document',
   description: 'Business information including contacts and social media links. Ensure there is only one of these documents.',
   fields: [
-    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
       name: 'name',
       title: 'Name',
-      type: 'string',
+      type: 'internationalizedArrayString',
       validation: Rule => Rule.required().error('A name for the business is required.'),
-      description: 'Your business name.',
-      placeholder: 'Philotimo Supper Club',
+      description: 'Your business name. ex.: Philotimo Supper Club',
     }),
      defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'internationalizedArrayText',
       description: 'A brief description of your business.',
-      placeholder: 'Your business description...',
-    }),
+      validation: Rule => Rule.required().error('A description for the business is required.'),}),
     defineField({
       name: 'logo',
       title: 'Logo',

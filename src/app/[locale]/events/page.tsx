@@ -4,10 +4,17 @@ import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 // import { getLocale } from 'next-intl/server';
 
-export default async function EventsPage() {
-  // const locale = await getLocale()
-  //  const { data: events } = await sanityFetch({ query: EVENTS_QUERY, params: {locale} });
-  const { data: events } = await sanityFetch({ query: EVENTS_QUERY});
+export default async function EventsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
+  const { data: events } = await sanityFetch({
+    query: EVENTS_QUERY,
+    params: { locale },
+  }) 
   return (
     <>
       <div className="page-banner w-full py-10">
@@ -22,7 +29,12 @@ export default async function EventsPage() {
               <div className="event-details flex flex-col justify-between items-start gap-8">
                 <h2>{event.title}</h2>
                 <h4>{event.datetime
-            ? 'When: ' + new Date(event.datetime).toLocaleString()
+            ? 'When: ' + new Date(event.datetime).toLocaleDateString(locale, {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })
             : 'Date to be announced'}</h4>
                 <h4>{'Where: ' + event.location}</h4>
                 <h4>{event.description}</h4>

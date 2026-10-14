@@ -4,9 +4,23 @@ import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 
-export default async function HomePage() {
-  const { data: homepage } = await sanityFetch({ query: HOMEPAGE_QUERY });
-  const { data: event } = await sanityFetch({ query: EVENTS_QUERY }); //maybe create a seperate one for this page
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
+  const { data: homepage } = await sanityFetch({
+    query: HOMEPAGE_QUERY,
+    params: { locale },
+  })
+  const { data: event } = await sanityFetch({
+    query: EVENTS_QUERY,
+    params: { locale },
+  })
+  // const { data: homepage } = await sanityFetch({ query: HOMEPAGE_QUERY });
+  // const { data: event } = await sanityFetch({ query: EVENTS_QUERY }); //maybe create a seperate one for this page
   return (
     <>
       <div className="w-full py-10">            
@@ -46,7 +60,12 @@ export default async function HomePage() {
         <h2>{event[0].title}</h2>
         {/* check for null behaviours!! */}
             <h4>{event[0].datetime
-      ? 'When: ' + new Date(event[0].datetime).toLocaleString()
+      ? 'When: ' + new Date(event[0].datetime).toLocaleDateString(locale, {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        })
       : 'Date to be announced.'}</h4>
             <h4>{'Where:' + event[0].location}</h4>
             <h4>{event[0].description}</h4>

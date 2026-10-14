@@ -10,21 +10,18 @@ export const eventType = defineType({
   title: 'Event',
   type: 'document',
   fields: [
-    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
       name: 'title',
       title: 'Event Name',
-      type: 'string',
-      description: 'Name the event something memorable!',
-      placeholder: 'Marvin\'s Magical Event',
+      type: 'internationalizedArrayString',
+      description: 'Name the event something memorable! ex.: Marvin\'s Magical Event',
       validation: Rule => Rule.required().error('A name for the event is required.'),
     }),
      defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
-      description: 'Add all the relevant details about the event including the theme, dress code, menu, etc.',
-      placeholder: 'Join us for an evening of magic and mystery! \n\nDress code: Formal attire with a touch of whimsy. \n\nMenu: A delectable selection of gourmet dishes and enchanting desserts.',
+      type: 'internationalizedArrayText',
+      description: 'Add all the relevant details about the event including the theme, dress code, menu, etc. ex.: Join us for an evening of magic and mystery! \n\nDress code: Formal attire with a touch of whimsy. \n\nMenu: A delectable selection of gourmet dishes and enchanting desserts.',
       validation: Rule => Rule.required().error('A description for the event is required.'),
     }),
      defineField({

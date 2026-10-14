@@ -3,8 +3,17 @@ import { ABOUT_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 
-export default async function AboutPage() {
-  const { data: about } = await sanityFetch({ query: ABOUT_QUERY });
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
+  const { data: about } = await sanityFetch({
+    query: ABOUT_QUERY,
+    params: { locale },
+  })
   return (
     <>
       <div className="page-banner w-full py-10">

@@ -15,35 +15,27 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
-export type TranslationMetadata = {
+export type Legal = {
   _id: string;
-  _type: "translation.metadata";
+  _type: "legal";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  translations?: InternationalizedArrayReference;
-  schemaTypes?: Array<string>;
+  title?: InternationalizedArrayString;
+  termsText?: InternationalizedArrayText;
 };
 
-export type InternationalizedArrayReference = Array<
+export type InternationalizedArrayText = Array<
   {
     _key: string;
-  } & InternationalizedArrayReferenceValue
+  } & InternationalizedArrayTextValue
 >;
 
-export type HomeReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "home";
-};
-
-export type AboutReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "about";
-};
+export type InternationalizedArrayString = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayStringValue
+>;
 
 export type MediaReference = {
   _ref: string;
@@ -52,47 +44,32 @@ export type MediaReference = {
   [internalGroqTypeReferenceTo]?: "media";
 };
 
-export type EventReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "event";
-};
-
-export type BusinessInfoReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "businessInfo";
-};
-
-export type LegalReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "legal";
-};
-
-export type InternationalizedArrayReferenceValue = {
-  _type: "internationalizedArrayReferenceValue";
-  value?:
-    | HomeReference
-    | AboutReference
-    | MediaReference
-    | EventReference
-    | BusinessInfoReference
-    | LegalReference;
-  language?: string;
-};
-
-export type Legal = {
+export type About = {
   _id: string;
-  _type: "legal";
+  _type: "about";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  termsText?: string;
+  title?: InternationalizedArrayString;
+  bannerText?: InternationalizedArrayString;
+  aboutText?: InternationalizedArrayText;
+  historyText?: InternationalizedArrayText;
+  hostText?: InternationalizedArrayText;
+  hostImage?: MediaReference;
+  inspoText?: InternationalizedArrayText;
+  inspoImage?: MediaReference;
+};
+
+export type Home = {
+  _id: string;
+  _type: "home";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroTitle?: InternationalizedArrayString;
+  heroSubtitle?: InternationalizedArrayText;
+  heroImage?: MediaReference;
+  introText?: InternationalizedArrayText;
 };
 
 export type SanityImageAssetReference = {
@@ -108,8 +85,8 @@ export type BusinessInfo = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  description?: string;
+  name?: InternationalizedArrayString;
+  description?: InternationalizedArrayText;
   logo?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -147,53 +124,6 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
-export type Event = {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  datetime?: string;
-  cost?: number;
-  location?: string;
-  media?: Array<
-    {
-      _key: string;
-    } & MediaReference
-  >;
-};
-
-export type About = {
-  _id: string;
-  _type: "about";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  bannerText?: string;
-  aboutText?: string;
-  historyText?: string;
-  hostText?: string;
-  hostImage?: MediaReference;
-  inspoText?: string;
-  inspoImage?: MediaReference;
-};
-
-export type Home = {
-  _id: string;
-  _type: "home";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  heroTitle?: string;
-  heroImage?: MediaReference;
-  heroSubtitle?: string;
-  introText?: string;
-};
-
 export type Media = {
   _id: string;
   _type: "media";
@@ -207,10 +137,40 @@ export type Media = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    caption?: string;
-    alttext?: string;
+    caption?: InternationalizedArrayString;
+    alttext?: InternationalizedArrayString;
     _type: "image";
   };
+};
+
+export type Event = {
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: InternationalizedArrayString;
+  description?: InternationalizedArrayText;
+  datetime?: string;
+  cost?: number;
+  location?: string;
+  media?: Array<
+    {
+      _key: string;
+    } & MediaReference
+  >;
+};
+
+export type InternationalizedArrayTextValue = {
+  _type: "internationalizedArrayTextValue";
+  value?: string;
+  language?: string;
+};
+
+export type InternationalizedArrayStringValue = {
+  _type: "internationalizedArrayStringValue";
+  value?: string;
+  language?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -317,24 +277,20 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
-  | TranslationMetadata
-  | InternationalizedArrayReference
-  | HomeReference
-  | AboutReference
-  | MediaReference
-  | EventReference
-  | BusinessInfoReference
-  | LegalReference
-  | InternationalizedArrayReferenceValue
   | Legal
+  | InternationalizedArrayText
+  | InternationalizedArrayString
+  | MediaReference
+  | About
+  | Home
   | SanityImageAssetReference
   | BusinessInfo
   | SanityImageCrop
   | SanityImageHotspot
-  | Event
-  | About
-  | Home
   | Media
+  | Event
+  | InternationalizedArrayTextValue
+  | InternationalizedArrayStringValue
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -347,14 +303,14 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: ABOUT_QUERY
-// Query: *[_type == "about"][0] {_id, bannerText, aboutText, historyText, hostText, inspoText, hostImage-> {_id,      file}, inspoImage-> {_id,      file}}
+// Query: *[_type == "about"][0] {      _id,      "bannerText": coalesce(            bannerText[language == $locale][0].value,            bannerText[language == "en"][0].value,            "Missing translation value."      ),      "aboutText": coalesce(            aboutText[language == $locale][0].value,            aboutText[language == "en"][0].value,            "Missing translation value."      ),      "historyText": coalesce(            historyText[language == $locale][0].value,            historyText[language == "en"][0].value,            "Missing translation value."      ),      "hostText": coalesce(            hostText[language == $locale][0].value,            hostText[language == "en"][0].value,            "Missing translation value."      ),      "inspoText": coalesce(            inspoText[language == $locale][0].value,            inspoText[language == "en"][0].value,            "Missing translation value."      ),      hostImage-> {            _id,            file{            ...,            "alttext": coalesce(                  alttext[language == $locale][0].value,                  alttext[language == "en"][0].value,                  "Missing translation value."            ),            "caption": coalesce(                  caption[language == $locale][0].value,                  caption[language == "en"][0].value,                  "Missing translation value."            )      }      },       inspoImage-> {            _id,            file{            ...,            "alttext": coalesce(                  alttext[language == $locale][0].value,                  alttext[language == "en"][0].value,                  "Missing translation value."            ),            "caption": coalesce(                  caption[language == $locale][0].value,                  caption[language == "en"][0].value,                  "Missing translation value."            )      }      }}
 export type ABOUT_QUERY_RESULT = {
   _id: string;
-  bannerText: string | null;
-  aboutText: string | null;
-  historyText: string | null;
-  hostText: string | null;
-  inspoText: string | null;
+  bannerText: string | "Missing translation value.";
+  aboutText: string | "Missing translation value.";
+  historyText: string | "Missing translation value.";
+  hostText: string | "Missing translation value.";
+  inspoText: string | "Missing translation value.";
   hostImage: {
     _id: string;
     file: {
@@ -362,8 +318,8 @@ export type ABOUT_QUERY_RESULT = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      caption?: string;
-      alttext?: string;
+      caption: string | "Missing translation value.";
+      alttext: string | "Missing translation value.";
       _type: "image";
     } | null;
   } | null;
@@ -374,8 +330,8 @@ export type ABOUT_QUERY_RESULT = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      caption?: string;
-      alttext?: string;
+      caption: string | "Missing translation value.";
+      alttext: string | "Missing translation value.";
       _type: "image";
     } | null;
   } | null;
@@ -383,11 +339,11 @@ export type ABOUT_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: EVENTS_QUERY
-// Query: *[_type == "event"] | order(datetime desc) {_id, title, description, cost,      media[]->{      _id,      file    }, datetime, location}
+// Query: *[_type == "event"] | order(datetime desc) {      _id,      "title": coalesce(            title[language == $locale][0].value,            title[language == "en"][0].value,            "Missing translation value."      ),      "description": coalesce(            description[language == $locale][0].value,            description[language == "en"][0].value,            "Missing translation value."      ),      cost,        media[]->{            _id,            file{                  ...,                  "alttext": coalesce(                        alttext[language == $locale][0].value,                        alttext[language == "en"][0].value,                        "Missing translation value."                  ),                  "caption": coalesce(                        caption[language == $locale][0].value,                        caption[language == "en"][0].value,                        "Missing translation value."                  )            }      },      datetime,      location}
 export type EVENTS_QUERY_RESULT = Array<{
   _id: string;
-  title: string | null;
-  description: string | null;
+  title: string | "Missing translation value.";
+  description: string | "Missing translation value.";
   cost: number | null;
   media: Array<{
     _id: string;
@@ -396,8 +352,8 @@ export type EVENTS_QUERY_RESULT = Array<{
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      caption?: string;
-      alttext?: string;
+      caption: string | "Missing translation value.";
+      alttext: string | "Missing translation value.";
       _type: "image";
     } | null;
   }> | null;
@@ -407,12 +363,12 @@ export type EVENTS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: HOMEPAGE_QUERY
-// Query: *[_type == 'home'] [0]{_id, heroSubtitle, heroTitle, introText, heroImage-> {_id,      file}}
+// Query: *[_type == 'home'] [0]{      _id,       "heroSubtitle": coalesce(            heroSubtitle[language == $locale][0].value,            heroSubtitle[language == "en"][0].value,            "Missing translation value."      ),       "heroTitle": coalesce(            heroTitle[language == $locale][0].value,            heroTitle[language == "en"][0].value,            "Missing translation value."      ),       "introText": coalesce(            introText[language == $locale][0].value,            introText[language == "en"][0].value,            "Missing translation value."     ),       heroImage-> {            _id,            file{                  ...,                  "alttext": coalesce(                        alttext[language == $locale][0].value,                        alttext[language == "en"][0].value,                        "Missing translation value."                  ),                  "caption": coalesce(                        caption[language == $locale][0].value,                        caption[language == "en"][0].value,                        "Missing translation value."                  )            }      }}
 export type HOMEPAGE_QUERY_RESULT = {
   _id: string;
-  heroSubtitle: string | null;
-  heroTitle: string | null;
-  introText: string | null;
+  heroSubtitle: string | "Missing translation value.";
+  heroTitle: string | "Missing translation value.";
+  introText: string | "Missing translation value.";
   heroImage: {
     _id: string;
     file: {
@@ -420,8 +376,8 @@ export type HOMEPAGE_QUERY_RESULT = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      caption?: string;
-      alttext?: string;
+      caption: string | "Missing translation value.";
+      alttext: string | "Missing translation value.";
       _type: "image";
     } | null;
   } | null;
@@ -429,26 +385,26 @@ export type HOMEPAGE_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: LEGAL_QUERY
-// Query: *[_type == 'legal'][0] {_id, title, termsText}
+// Query: *[_type == 'legal'][0] {      _id,      "title": coalesce(            title[language == $locale][0].value,            title[language == "en"][0].value,            "Missing translation value."      ),      "termsText": coalesce(            termsText[language == $locale][0].value,            termsText[language == "en"][0].value,            "Missing translation value."      )}
 export type LEGAL_QUERY_RESULT = {
   _id: string;
-  title: string | null;
-  termsText: string | null;
+  title: string | "Missing translation value.";
+  termsText: string | "Missing translation value.";
 } | null;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: BUSINESS_QUERY
-// Query: *[_type == 'busninessInfo'][0] {_id, name, description, logo[]->{      _id,      file },      location, phone, email, socials[]->{      _id,      icon,      url    }}
+// Query: *[_type == 'busninessInfo'][0] {      _id,      "name": coalesce(            name[language == $locale][0].value,            name[language == "en"][0].value,            "Missing translation value."      ),      "description": coalesce(            description[language == $locale][0].value,            description[language == "en"][0].value,            "Missing translation value."      ),      logo[]->{            _id,            file{                  ...,                  "alttext": coalesce(                        alttext[language == $locale][0].value,                        alttext[language == "en"][0].value,                        "Missing translation value."                  ),                  "caption": coalesce(                        caption[language == $locale][0].value,                        caption[language == "en"][0].value,                        "Missing translation value."                  )            }      },      location,      phone,      email,      socials[]->{      _id,      icon,      url    }}
 export type BUSINESS_QUERY_RESULT = null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "about"][0] {_id, bannerText, aboutText, historyText, hostText, inspoText, hostImage-> {_id,\n      file}, inspoImage-> {_id,\n      file}}': ABOUT_QUERY_RESULT;
-    '*[_type == "event"] | order(datetime desc) {_id, title, description, cost,  \n    media[]->{\n      _id,\n      file\n    }, datetime, location}': EVENTS_QUERY_RESULT;
-    "*[_type == 'home'] [0]{_id, heroSubtitle, heroTitle, introText, heroImage-> {_id,\n      file}}": HOMEPAGE_QUERY_RESULT;
-    "*[_type == 'legal'][0] {_id, title, termsText}": LEGAL_QUERY_RESULT;
-    "*[_type == 'busninessInfo'][0] {_id, name, description, logo[]->{\n      _id,\n      file },\n      location, phone, email, socials[]->{\n      _id,\n      icon,\n      url\n    }}": BUSINESS_QUERY_RESULT;
+    '*[_type == "about"][0] {\n      _id,\n      "bannerText": coalesce(\n            bannerText[language == $locale][0].value,\n            bannerText[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "aboutText": coalesce(\n            aboutText[language == $locale][0].value,\n            aboutText[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "historyText": coalesce(\n            historyText[language == $locale][0].value,\n            historyText[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "hostText": coalesce(\n            hostText[language == $locale][0].value,\n            hostText[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "inspoText": coalesce(\n            inspoText[language == $locale][0].value,\n            inspoText[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      hostImage-> {\n            _id,\n            file{\n            ...,\n            "alttext": coalesce(\n                  alttext[language == $locale][0].value,\n                  alttext[language == "en"][0].value,\n                  "Missing translation value."\n            ),\n            "caption": coalesce(\n                  caption[language == $locale][0].value,\n                  caption[language == "en"][0].value,\n                  "Missing translation value."\n            )\n      }\n      }, \n      inspoImage-> {\n            _id,\n            file{\n            ...,\n            "alttext": coalesce(\n                  alttext[language == $locale][0].value,\n                  alttext[language == "en"][0].value,\n                  "Missing translation value."\n            ),\n            "caption": coalesce(\n                  caption[language == $locale][0].value,\n                  caption[language == "en"][0].value,\n                  "Missing translation value."\n            )\n      }\n      }\n}': ABOUT_QUERY_RESULT;
+    '*[_type == "event"] | order(datetime desc) {\n      _id,\n      "title": coalesce(\n            title[language == $locale][0].value,\n            title[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "description": coalesce(\n            description[language == $locale][0].value,\n            description[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      cost,  \n      media[]->{\n            _id,\n            file{\n                  ...,\n                  "alttext": coalesce(\n                        alttext[language == $locale][0].value,\n                        alttext[language == "en"][0].value,\n                        "Missing translation value."\n                  ),\n                  "caption": coalesce(\n                        caption[language == $locale][0].value,\n                        caption[language == "en"][0].value,\n                        "Missing translation value."\n                  )\n            }\n      },\n      datetime,\n      location\n}': EVENTS_QUERY_RESULT;
+    '*[_type == \'home\'] [0]{\n      _id, \n      "heroSubtitle": coalesce(\n            heroSubtitle[language == $locale][0].value,\n            heroSubtitle[language == "en"][0].value,\n            "Missing translation value."\n      ), \n      "heroTitle": coalesce(\n            heroTitle[language == $locale][0].value,\n            heroTitle[language == "en"][0].value,\n            "Missing translation value."\n      ), \n      "introText": coalesce(\n            introText[language == $locale][0].value,\n            introText[language == "en"][0].value,\n            "Missing translation value."\n     ), \n      heroImage-> {\n            _id,\n            file{\n                  ...,\n                  "alttext": coalesce(\n                        alttext[language == $locale][0].value,\n                        alttext[language == "en"][0].value,\n                        "Missing translation value."\n                  ),\n                  "caption": coalesce(\n                        caption[language == $locale][0].value,\n                        caption[language == "en"][0].value,\n                        "Missing translation value."\n                  )\n            }\n      }\n}': HOMEPAGE_QUERY_RESULT;
+    '*[_type == \'legal\'][0] {\n      _id,\n      "title": coalesce(\n            title[language == $locale][0].value,\n            title[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "termsText": coalesce(\n            termsText[language == $locale][0].value,\n            termsText[language == "en"][0].value,\n            "Missing translation value."\n      )\n}': LEGAL_QUERY_RESULT;
+    '*[_type == \'busninessInfo\'][0] {\n      _id,\n      "name": coalesce(\n            name[language == $locale][0].value,\n            name[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      "description": coalesce(\n            description[language == $locale][0].value,\n            description[language == "en"][0].value,\n            "Missing translation value."\n      ),\n      logo[]->{\n            _id,\n            file{\n                  ...,\n                  "alttext": coalesce(\n                        alttext[language == $locale][0].value,\n                        alttext[language == "en"][0].value,\n                        "Missing translation value."\n                  ),\n                  "caption": coalesce(\n                        caption[language == $locale][0].value,\n                        caption[language == "en"][0].value,\n                        "Missing translation value."\n                  )\n            }\n      },\n      location,\n      phone,\n      email,\n      socials[]->{\n      _id,\n      icon,\n      url\n    }\n}': BUSINESS_QUERY_RESULT;
   }
 }

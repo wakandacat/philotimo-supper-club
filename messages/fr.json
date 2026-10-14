@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "about": "À propos",
+    "events": "Événements",
+    "contact": "Contact"
+  },
+  "buttons": {
+    "pullUpAChair": "Tirez une chaise"
+  }
+}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from 'react';
+import { LanguageToggle } from "./languageToggle";
 
 
 export default function Header(){
@@ -22,10 +23,6 @@ export default function Header(){
     return () => media.removeEventListener('change', listener);
   }, []);
 
-  function toBeImplemented() {
-    alert("Language toggle is under construction!");
-  }
-
     return (
         <header className="w-full py-4 bg-(--philotimo-blue-dark) text-(--philotimo-white)">
             <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
@@ -40,7 +37,7 @@ export default function Header(){
                     <Link className="header-link" href="/events">Events</Link>
                     <Link className="header-link" href="/contact">Contact</Link>
                 </div>
-                <button onClick={toBeImplemented} className="inline button-1-style">EN</button>
+                <LanguageToggle />
             </div>
           
             </>) 
@@ -63,7 +60,7 @@ export default function Header(){
                     Philotimo Supper Club
                 </Link>
 
-                <p className="justify-self-end p-3 bg-(--philotimo-blue)">TOGGLE SOON</p>
+                <LanguageToggle />
               
             </div>
 

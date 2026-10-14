@@ -10,18 +10,16 @@ export const legalType = defineType({
   title: 'Legal Page Content',
   type: 'document',
   fields: [
-    // defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
       name: 'title',
       title: 'Page Title',
-      type: 'string'
+      type: 'internationalizedArrayString',
+      validation: Rule => Rule.required().error('A title for the legal page is required.'),
     }),
     defineField({
       name: 'termsText',
       title: 'Terms and Conditions',
-      type: 'text',
-      description: 'Terms and conditions for the website.',
-      placeholder: 'Terms and Conditions',
+      type: 'internationalizedArrayText',
       validation: Rule => Rule.required().error('The terms and conditions section is required.'),
     }),
   ],

@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "about": "About",
+    "events": "Events",
+    "contact": "Contact"
+  },
+  "buttons": {
+    "pullUpAChair": "Pull up a chair"
+  }
+}
