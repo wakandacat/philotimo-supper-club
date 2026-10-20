@@ -3,7 +3,7 @@ import { defineQuery } from 'next-sanity'
 
 //TAKE INTO ACCOUNT LOCALES
 
-export const ABOUT_QUERY = defineQuery(`*[_type == "about"][0] {
+export const ABOUT_QUERY = defineQuery(`*[_type == "about"]| order(_updatedAt desc)[0] {
       _id,
       "bannerText": coalesce(
             bannerText[language == $locale][0].value,
@@ -99,7 +99,7 @@ export const EVENTS_QUERY = defineQuery(`*[_type == "event"] | order(datetime de
 
 //grab the homepage content --> just get the first one if there are multiple although there shouldn't be
 // export const HOMEPAGE_QUERY = defineQuery(`*[_type == 'home' && language == $locale] [0]{_id, heroSubtitle, heroTitle, introText}`);
-export const HOMEPAGE_QUERY = defineQuery(`*[_type == 'home'] [0]{
+export const HOMEPAGE_QUERY = defineQuery(`*[_type == 'home'] | order(_updatedAt desc)[0]{
       _id, 
       "heroSubtitle": coalesce(
             heroSubtitle[language == $locale][0].value,
@@ -134,7 +134,7 @@ export const HOMEPAGE_QUERY = defineQuery(`*[_type == 'home'] [0]{
       }
 }`)
 
-export const LEGAL_QUERY = defineQuery(`*[_type == 'legal'][0] {
+export const LEGAL_QUERY = defineQuery(`*[_type == 'legal']| order(_updatedAt desc)[0] {
       _id,
       "title": coalesce(
             title[language == $locale][0].value,
@@ -148,7 +148,7 @@ export const LEGAL_QUERY = defineQuery(`*[_type == 'legal'][0] {
       )
 }`);
 
-export const BUSINESS_QUERY = defineQuery(`*[_type == 'busninessInfo'][0] {
+export const BUSINESS_QUERY = defineQuery(`*[_type == 'businessInfo']| order(_updatedAt desc)[0] {
       _id,
       "name": coalesce(
             name[language == $locale][0].value,
@@ -160,7 +160,7 @@ export const BUSINESS_QUERY = defineQuery(`*[_type == 'busninessInfo'][0] {
             description[language == "en"][0].value,
             "Missing translation value."
       ),
-      logo[]->{
+      logo->{
             _id,
             file{
                   ...,
@@ -179,9 +179,5 @@ export const BUSINESS_QUERY = defineQuery(`*[_type == 'busninessInfo'][0] {
       location,
       phone,
       email,
-      socials[]->{
-      _id,
-      icon,
-      url
-    }
+      socials
 }`);

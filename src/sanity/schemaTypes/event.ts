@@ -28,6 +28,11 @@ export const eventType = defineType({
       name: 'datetime',
       title: 'Date and Time',
       type: 'datetime',
+      options: {
+        timeStep: 15,
+        displayTimeZone: 'America/Toronto',
+        allowTimeZoneSwitch: false,
+      },
       description: 'The date and time of the event.',
       validation: Rule => Rule.required().error('A date and time for the event is required.'),
     }),
@@ -35,8 +40,8 @@ export const eventType = defineType({
       name: 'cost',
       title: 'Cost',
       type: 'number',
-      description: 'If there is a cost associated with the event, include it here. Price is in CAD.',
-      validation: Rule => Rule.positive().required().error('A positive cost for the event is required.'),
+      description: 'If there is a cost associated with the event, include it here.',
+      validation: Rule => Rule.positive().precision(2).error('Please enter a valid cost for the event.'),
     }),
      defineField({
       name: 'location',
@@ -50,7 +55,18 @@ export const eventType = defineType({
       title: 'Media',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'media' }] }],
-      description: 'Any media associated with the event. For a future event, include promotionals. For a past event, include photos and videos.',
+      description: 'Media associated with the event. For a future event, include promotionals. For a past event, include photos and videos.',
+      validation: (Rule) => [
+        Rule.min(1).error('Add at least one photo or video.'),
+        Rule.unique().error('The same item is added twice.'),
+      ],
     }),
   ],
+  preview: {
+    select: { title: 'title.0.value', subtitle: 'datetime' },
+    prepare: ({ title, subtitle }) => ({
+      title: title ?? 'Untitled event',
+      subtitle: subtitle ? new Date(subtitle).toLocaleDateString('en-CA') : 'No date',
+    }),
+  },
 })

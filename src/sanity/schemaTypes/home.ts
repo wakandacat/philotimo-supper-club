@@ -34,10 +34,13 @@ export const homeType = defineType({
     }),
      defineField({
       name: 'introText',
-      title: 'WWelcome Text',
+      title: 'Welcome Text',
       type: 'internationalizedArrayText',
       description: 'The welcome text for the homepage. ex.: Discover the flavors of Greece with our authentic cuisine.',
       validation: Rule => Rule.required().error('Welcome text for the homepage is required.'),
     }),
-  ],
+  ],  
+  preview: {
+    prepare: () => ({ title: 'Homepage' }),
+  },
 })

@@ -2,7 +2,6 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { EVENTS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
-// import { getLocale } from 'next-intl/server';
 
 export default async function EventsPage({
   params,
@@ -15,6 +14,15 @@ export default async function EventsPage({
     query: EVENTS_QUERY,
     params: { locale },
   }) 
+
+  const formatCost = (cost: number | null) => {
+    if (cost == null) return null
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'CAD',
+    }).format(cost)
+  }
+
   return (
     <>
       <div className="page-banner w-full py-10">
@@ -29,16 +37,14 @@ export default async function EventsPage({
               <div className="event-details flex flex-col justify-between items-start gap-8">
                 <h2>{event.title}</h2>
                 <h4>{event.datetime
-            ? 'When: ' + new Date(event.datetime).toLocaleDateString(locale, {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
+            ? new Date(event.datetime).toLocaleDateString(locale, {
+                dateStyle: 'full',
+                timeZone: 'America/Toronto',
               })
             : 'Date to be announced'}</h4>
                 <h4>{'Where: ' + event.location}</h4>
                 <h4>{event.description}</h4>
-                 <h4>{'Cost: $'+ event.cost + " CAD"}</h4>
+                 <h4>{formatCost(event.cost) ? formatCost(event.cost) : 'No cost'}</h4>
               </div>
               <div className="event-gallery">
                   {event.media?.map((item) => (

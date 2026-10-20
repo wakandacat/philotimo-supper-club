@@ -19,8 +19,15 @@ export default async function HomePage({
     query: EVENTS_QUERY,
     params: { locale },
   })
-  // const { data: homepage } = await sanityFetch({ query: HOMEPAGE_QUERY });
-  // const { data: event } = await sanityFetch({ query: EVENTS_QUERY }); //maybe create a seperate one for this page
+
+  const formatCost = (cost: number | null) => {
+    if (cost == null) return null
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'CAD',
+    }).format(cost)
+  }
+
   return (
     <>
       <div className="w-full py-10">            
@@ -60,16 +67,14 @@ export default async function HomePage({
         <h2>{event[0].title}</h2>
         {/* check for null behaviours!! */}
             <h4>{event[0].datetime
-      ? 'When: ' + new Date(event[0].datetime).toLocaleDateString(locale, {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric',
+      ? new Date(event[0].datetime).toLocaleDateString(locale, {
+          dateStyle: 'full',
+          timeZone: 'America/Toronto',
         })
       : 'Date to be announced.'}</h4>
             <h4>{'Where:' + event[0].location}</h4>
             <h4>{event[0].description}</h4>
-            <h4>{'Cost: $'+ event[0].cost + " CAD"}</h4>
+            <h4>{formatCost(event[0].cost) ? formatCost(event[0].cost) : 'No cost'}</h4>
           </div> 
           <div className="event-gallery">
                {event[0].media?.map((item) => (

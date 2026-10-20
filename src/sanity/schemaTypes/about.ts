@@ -69,4 +69,7 @@ export const aboutType = defineType({
       validation: Rule => Rule.required().error('An inspiration image is required.'),
     }),
   ],
+   preview: {
+    prepare: () => ({ title: 'About' }),
+  },
 })

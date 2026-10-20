@@ -174,6 +174,15 @@ h4 {
   font-size: 1.25rem;
 }
 
+a {
+  color: var(--philotimo-white);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--philotimo-yellow);
+}
+
 input {
   padding: 10px;
   border: 2px solid var(--philotimo-blue-dark);

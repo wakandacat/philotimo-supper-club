@@ -2,15 +2,6 @@
 
 //name is internal
 //title is external
-import {
-  FaXTwitter,
-  FaSpotify,
-  FaInstagram,
-  FaYoutube,
-  FaTiktok,
-  FaFacebook,
-} from 'react-icons/fa6'
-import {MdMail} from 'react-icons/md'
 import {defineField, defineType} from 'sanity'
 
 export const businessInfoType = defineType({
@@ -62,15 +53,18 @@ export const businessInfoType = defineType({
       name: 'phone',
       title: 'Phone',
       type: 'string',
-      description: 'Your business phone number.',
-      placeholder: '123-456-7890',
+      description: 'For example: 613-123-4567',
+      validation: (Rule) =>
+      Rule.required()
+        .regex(/^\+?[0-9\s().-]{7,20}$/, { name: 'phone number' })
+        .error('Enter a valid phone number.'),
     }),
      defineField({
       name: 'email',
       title: 'Email',
       type: 'string',
       description: 'Your business email address.',
-      placeholder: 'yourbusiness@email.com',
+      placeholder: 'philotimo@gmail.com',
       validation: Rule => Rule.required().email().error('A valid email address is required.'),
     }),
     //list of social media links here
@@ -88,44 +82,47 @@ export const businessInfoType = defineType({
           name: 'twitter',
           type: 'url',
           fieldset: 'social',
-          icon: FaXTwitter
+          validation: (Rule) => Rule.uri({ scheme: ['https'] }),
         },
         {
           title: 'Instagram',
           name: 'instagram',
           type: 'url',
           fieldset: 'social',
-          icon: FaInstagram
+          validation: (Rule) => Rule.uri({ scheme: ['https'] }),
         },
         {
           title: 'Facebook',
           name: 'facebook',
           type: 'url',
           fieldset: 'social',
-          icon: FaFacebook
+          validation: (Rule) => Rule.uri({ scheme: ['https'] }),
         },
         {
           title: 'TikTok',
           name: 'tiktok',
           type: 'url',
           fieldset: 'social',
-          icon: FaTiktok
+          validation: (Rule) => Rule.uri({ scheme: ['https'] }),
         },
         {
           title: 'Spotify',
           name: 'spotify',
           type: 'url',
           fieldset: 'social',
-          icon: FaSpotify
+          validation: (Rule) => Rule.uri({ scheme: ['https'] }),
         },
         {
           title: 'YouTube',
           name: 'youtube',
           type: 'url',
           fieldset: 'social',
-          icon: FaYoutube
+          validation: (Rule) => Rule.uri({ scheme: ['https'] }),
         }
       ]
     }),
-  ],
+  ],  
+  preview: {
+    prepare: () => ({ title: 'Business Info' }),
+  },
 })

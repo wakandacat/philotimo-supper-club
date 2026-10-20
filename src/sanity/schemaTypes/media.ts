@@ -10,17 +10,18 @@ export const mediaType = defineType({
   title: 'Media',
   type: 'document',
   fields: [
-    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
+      description: 'Internal label to help you find this in the media library. Visitors never see it.',
+      validation: (Rule) => Rule.required().error('Give this media item a name so you can find it later.'),
     }),
     defineField({
       name: 'file',
       title: 'File',
       type: 'image',
-      validation: Rule => Rule.required().error('Image or video is required.'),
+      validation: Rule => Rule.required().error('Image is required.'),
       options: {
         hotspot: true
     }, fields: [
@@ -28,7 +29,7 @@ export const mediaType = defineType({
             name: 'caption',
             title: 'Caption',
             type: 'internationalizedArrayString',
-            description: 'A short caption for the image or video. Whatever you want. ex.: Little Vegas was the life of the party!',
+            description: 'A short caption for the image. Whatever you want. ex.: Little Vegas was the life of the party!',
         }),
         defineField({
             name: 'alttext',
@@ -40,4 +41,11 @@ export const mediaType = defineType({
         ],
     })
     ],
+    preview: {
+      select: { title: 'name', media: 'file' },
+      prepare: ({ title, media }) => ({
+        title: title ?? 'Untitled media',
+        media,
+      }),
+    },
 })

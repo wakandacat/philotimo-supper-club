@@ -8,6 +8,7 @@ import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import { internationalizedArray } from 'sanity-plugin-internationalized-array'
+import { SINGLETON_TYPES } from './src/sanity/singletons'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import {apiVersion, dataset, projectId} from './src/sanity/env'
@@ -37,4 +38,18 @@ export default defineConfig({
       fieldTypes: ['string', 'text'],
     }),
   ],
+  document: {
+    //disallow creating new documents of singleton types, and disallow duplicate, delete, and unpublish actions for singleton types
+    newDocumentOptions: (prev, { creationContext }) =>
+      creationContext.type === 'global'
+        ? prev.filter((item) => !SINGLETON_TYPES.includes(item.templateId))
+        : prev,
+    actions: (prev, { schemaType }) =>
+      SINGLETON_TYPES.includes(schemaType)
+        ? prev.filter(
+            ({ action }) =>
+              !['duplicate', 'delete', 'unpublish'].includes(action ?? '')
+          )
+        : prev,
+  },
 })

@@ -23,4 +23,7 @@ export const legalType = defineType({
       validation: Rule => Rule.required().error('The terms and conditions section is required.'),
     }),
   ],
+  preview: {
+    prepare: () => ({ title: 'Legal' }),
+  },
 })
